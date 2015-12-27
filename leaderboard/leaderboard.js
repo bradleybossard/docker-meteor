@@ -1,4 +1,14 @@
 if (Meteor.isClient) {
+  Template.leaderboard.helpers({
+    'player': function(){
+      return PlayersList.find()
+    },
+    'otherHelperFunction': function(){
+      return PlayersList.find()
+    }
+  });
+
+/*
   // counter starts at 0
   Session.setDefault('counter', 0);
 
@@ -14,6 +24,7 @@ if (Meteor.isClient) {
       Session.set('counter', Session.get('counter') + 1);
     }
   });
+*/
 }
 
 if (Meteor.isServer) {
@@ -21,3 +32,6 @@ if (Meteor.isServer) {
     // code to run on server at startup
   });
 }
+
+PlayersList = new Mongo.Collection('players');
+
