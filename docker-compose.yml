@@ -1,0 +1,14 @@
+docker-meteor:
+  build: .
+  ports:
+    - "8085:3000"
+  volumes:
+    - ".:/src"
+  environment:
+    - VIRTUAL_HOST=firstmeteor.goliath.bradleybossard.com
+  links:
+    - db
+db:                    
+  image: mongo
+  ports:
+    - "27018:27017"
