@@ -9,4 +9,8 @@ RUN dpkg-reconfigure locales
 
 WORKDIR /src/leaderboard
 
+# Not sure why this isn't inherited from base layers,
+# but clear / git diff give errors about TERM not set
+ENV TERM xterm
+
 CMD meteor
