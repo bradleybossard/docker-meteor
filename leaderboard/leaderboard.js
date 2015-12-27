@@ -1,7 +1,11 @@
 if (Meteor.isClient) {
+
+  Meteor.subscribe('thePlayers');
+
   Template.leaderboard.helpers({
     'player': function(){
-      return PlayersList.find({}, {sort: {score: -1, name: 1} })
+      var currentUserId = Meteor.userId();
+      return PlayersList.find({}, {sort: {score: -1, name: 1}});
     },
     'selectedClass': function(){
       var playerId = this._id;
@@ -36,38 +40,24 @@ if (Meteor.isClient) {
       console.log('point1');
       event.preventDefault();
       var playerNameVar = event.target.playerName.value;
-
+      var currentUserId = Meteor.userId();
       PlayersList.insert({
         name: playerNameVar,
-        score: 0
+        score: 0,
+        createdBy: currentUserId
       });
       event.target.playerName.value = '';
     }
   });
-
-
-/*
-  // counter starts at 0
-  Session.setDefault('counter', 0);
-
-  Template.hello.helpers({
-    counter: function () {
-      return Session.get('counter');
-    }
-  });
-
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
-    }
-  });
-*/
 }
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
     // code to run on server at startup
+  });
+  Meteor.publish('thePlayers', function(){
+    var currentUserId = this.userId;
+    return PlayersList.find({createdBy: currentUserId})
   });
 }
 
