@@ -5,7 +5,7 @@ app:
   volumes:
     - ".:/src"
   environment:
-    - VIRTUAL_HOST=firstmeteor.goliath.bradleybossard.com
+    - VIRTUAL_HOST=firstmeteor.bradleybossard.com
   links:
     - db
 db:                    
